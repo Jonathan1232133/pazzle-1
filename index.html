@@ -8,14 +8,18 @@
                 TaskName: taskName,
                 TaskTargetState: targetState
             };
-            PortalsSdk.sendMessageToUnity(JSON.stringify(message));
+            portalSdk.sendMessageToUnity(JSON.stringify(message))
         }
+      function closeIframe() {
+        PortalsSdk.closeIframe();
+      }
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <button onclick="activateCode('code', 'SetNotActiveToActive')">Activate code</button>
+    <button onclick="activateCode('code', SetNotActiveToActive)">Activate code</button>
+    <button onclick="closeIframe()"></button>
 </body>
 </html>
