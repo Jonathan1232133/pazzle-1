@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Хоррор Замок с Кодовым Замком</title>
 <style>
-  /* Общий стиль и хоррор-фон */
   body, html {
     margin: 0; padding: 0; height: 100%;
     background: radial-gradient(ellipse at center, #0a0a0a, #1a1a1a 70%);
@@ -25,7 +24,6 @@
     flex-direction: column;
   }
 
-  /* Изображение замка */
   .castle {
     width: 400px;
     height: 300px;
@@ -34,7 +32,6 @@
     margin-bottom: 30px;
   }
 
-  /* Контейнер замкового замка */
   .lock-container {
     background-color: rgba(20,0,0,0.8);
     padding: 20px 30px;
@@ -44,7 +41,6 @@
     gap: 20px;
   }
 
-  /* Стиль вращающегося колеса */
   .wheel {
     width: 60px;
     height: 90px;
@@ -65,7 +61,6 @@
     filter: brightness(1.3);
   }
 
-  /* Кнопки смены цифры */
   .arrow {
     position: absolute;
     width: 24px;
@@ -83,7 +78,6 @@
     bottom: 5px;
   }
 
-  /* Статус */
   .status {
     margin-top: 30px;
     font-size: 20px;
@@ -122,8 +116,7 @@
 
   <div class="status" aria-live="polite" role="alert"></div>
 
-  <!-- Iframe с порталом, сюда следует подставить URL вашей игры или портала -->
-  <iframe id="portal-iframe" src="about:blank" style="display:none;"></iframe>
+  <iframe id="portal-iframe" src="https://theportal.to/?room=dcb9c134-4da8-4206-b74b-e6ba5ec0dce4" style="display:none;"></iframe>
 </div>
 
 <script>
@@ -131,17 +124,14 @@
   const status = document.querySelector('.status');
   const iframe = document.getElementById('portal-iframe');
 
-  // Инициализация значений колес в 0
   const digits = [0,0,0,0];
 
-  // Обновление отображения цифры в колесе
   function updateWheel(wheel, value) {
     const digitSpan = wheel.querySelector('.digit');
     digitSpan.textContent = value;
     wheel.setAttribute('aria-valuenow', value);
   }
 
-  // Проверка кода
   function checkCode() {
     const code = digits.join('');
     if(code === '3333') {
@@ -152,18 +142,19 @@
     }
   }
 
-  // Отправляем сообщение в iframe для установки задачи в статус active
   function activateTask() {
-    // Пример сообщения, настройте под API вашей игры или портала из документации
     const message = {
-      type: 'setTaskValue',
-      key: 'active',
-      value: true
+      type: "taskValueSet",
+      data: {
+        taskName: "code",
+        valueName: "active",
+        value: true
+      }
     };
-    iframe.contentWindow.postMessage(message, '*');
+    iframe.contentWindow.postMessage(message, 'https://theportal.to');
+    console.log('Сообщение отправлено:', message);
   }
 
-  // Обработчики на стрелки колес
   wheels.forEach((wheel, idx) => {
     const upArrow = wheel.querySelector('.arrow.up');
     const downArrow = wheel.querySelector('.arrow.down');
