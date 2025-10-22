@@ -70,16 +70,12 @@ function checkCode() {
             document.body.classList.add('unlocked');
             
             // Отправить сообщение в Unity
-            setTimeout(() => {
-                if (typeof PortalsSdk !== 'undefined') {
                     PortalsSdk.sendMessageToUnity(JSON.stringify({
                         TaskName: "lock",
                         TaskTargetState: "SetNotActiveToActive"
                     }));
                     
                     PortalsSdk.closeIframe();
-                }
-            }, 800);
             
         } else {
             // Неправильный код - красная вспышка
